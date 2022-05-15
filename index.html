@@ -31,6 +31,7 @@ THEN I can save my initials and score -->
                     <div class="card-body">
                         <h1 class="card-text float-right font-weight-bold">Code Quiz</h1>
                         <p>(<span id=number>0</span> of 5)</p>
+                        <h2 id="countdown"></h2>
                     </div>
                 </header>
                 <br />
@@ -46,12 +47,19 @@ THEN I can save my initials and score -->
                         <div class="card-body">
                             <p class="card-text question-element" id="question"></p>
                         </div>
-                        <div class="col-md-12 p-4" id="options">
-                            <button class="btn btn-block btn-outline-info text-left option" id="option1"></button>
-                            <button class="btn btn-block btn-outline-info text-left option" id="option2"></button>
-                            <button class="btn btn-block btn-outline-info text-left option" id="option3"></button>
-                            <button class="btn btn-block btn-outline-info text-left option" id="option4"></button>
-
+                        <div class="col-md-12 p-4" id="choices">
+                            <div class="choice" id="A" onclick="checkAnswer('A')">
+                            <button class="btn btn-block btn-outline-info text-left option" id="option1">A</button>
+                            </div>
+                            <div class="choice" id="B" onclick="checkAnswer('B')">
+                            <button class="btn btn-block btn-outline-info text-left option" id="option2">B</button>
+                            </div>
+                            <div class="choice" id="C" onclick="checkAnswer('C')">
+                            <button class="btn btn-block btn-outline-info text-left option" id="option3">C</button>
+                            </div>
+                            <div class="choice" id="D" onclick="checkAnswer('D')">
+                            <button class="btn btn-block btn-outline-info text-left option" id="option4">D</button>
+                            </div>
                             <!-- <div class="footer p-4">
                                 <button class="btn btn-info" id="previous">Previous</button>
                                 <button class="btn btn-info float-right" id="next">Next</button>
@@ -74,12 +82,12 @@ THEN I can save my initials and score -->
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-ui-touch-punch@0.2.3/jquery.ui.touch-punch.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script> -->
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
