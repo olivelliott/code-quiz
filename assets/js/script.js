@@ -61,7 +61,7 @@ var highScoreContentEl = document.querySelector(".high-score-submission");
 var highScorePageEl = document.querySelector(".high-score-page");
 var tryAgainEl = document.querySelector("#try-again-button");
 // var quizContentElQuestionNumber = document.querySelector("#number")
-var timeLeft = 30;
+var timeLeft = 60;
 var finalScore = 0;
 var lastQuestionIndex = questions.length -1;
 var runningQuestionIndex = 0;
@@ -69,20 +69,19 @@ var runningQuestionIndex = 0;
 
 
 highScorePageEl.style.display = "none";
-
 var startEl = function() {
-highScorePageEl.style.display = "none";
-startPageEl.style.display = "block";
-runningQuestionIndex = 0;
-finalScore = 0;
-timeLeft = 30;
-renderQuestion();
-// var startButtonEl = document.createElement("button")
-// startButtonEl.textContent = "Start THEEEhe quiz";
-// startButtonEl.className = "btn-start"
-// startEl.appendChild(startButtonEl);
-// countdown();
-}
+    highScorePageEl.style.display = "none";
+    startPageEl.style.display = "block";
+    runningQuestionIndex = 0;
+    finalScore = 0;
+    timeLeft = 60;
+    countdown();
+    // var startButtonEl = document.createElement("button")
+    // startButtonEl.textContent = "Start THEEEhe quiz";
+    // startButtonEl.className = "btn-start"
+    // startEl.appendChild(startButtonEl);
+    // countdown();
+    }
 
 function countdown() {
     quizContentEl.style.display = "block";
@@ -95,26 +94,16 @@ function countdown() {
         timerEl.textContent = timeLeft + ' second remaining';
         timeLeft--;
       }
-      else {
+      else if (timeLeft === 0) {
+        scoreRender();
         timerEl.textContent = "";
         clearInterval(timeInterval);
       }
     }, 1000);
-    // renderQuestion();
+    renderQuestion();
   }
 
-function answerIsCorrect() {
-    timeLeft ++;
-    finalScore ++;
-}
-
-function answerIsWrong() {
-    timeLeft--;
-    // finalScore--;
-}
-
 function renderQuestion() {
-    countdown();
     startPageEl.style.display = "none";
     highScorePageEl.style.display = "none";
 
@@ -126,23 +115,45 @@ function renderQuestion() {
     choiceD.textContent = q.choiceD;
 }
 
-function checkAnswer(answer) {
-    if(questions[runningQuestionIndex].correct == answer) {
-        timeLeft++;
-        answerIsCorrect();
-    } else {
-        answerIsWrong();
-        timer--;
-    }
+function nextQuestionHandler() {
     if (runningQuestionIndex < lastQuestionIndex) {
-        // count = 0;
-        runningQuestionIndex++;
-        renderQuestion();
-    } else {
+    // count = 0;
+    runningQuestionIndex++;
+    renderQuestion();
+} else {
+    scoreRender();
+}
+}
+
+function answerIsCorrect() {
+    if (timeLeft = 60) {
+        timeLeft = 60;
+        finalScore++;
+    } else if (timeLeft < 60) {
+        timeLeft =+ 5;
+        finalScore++;
+    } else if (timeLeft = 0) {
+        scoreRender();
+    }
+    return nextQuestionHandler();
+}
+
+function answerIsWrong() {
+    if (timeLeft > 0) {
+        timeLeft = timeLeft - 5;
+        nextQuestionHandler();
+    } else if (timeLeft = 0) {
         scoreRender();
     }
 }
 
+function checkAnswer(answer) {
+    if(questions[runningQuestionIndex].correct == answer) {
+        answerIsCorrect();
+    } else {
+        answerIsWrong();
+    } }
+// }
 function scoreRender() {
     scoreContainer.style.display = "block";
     timerEl.style.display = "none";
@@ -175,8 +186,7 @@ function highScorePage() {
     highScorePageEl.appendChild(highScoreList);
     console.log(highScorePageEl);
 }
-
-
+    
 startButtonEl.addEventListener("click", startEl);
 submitButtonEl.addEventListener("click", function(event){
     event.preventDefault();
@@ -185,7 +195,6 @@ submitButtonEl.addEventListener("click", function(event){
     highScorePage();
 });
 
-tryAgainEl.addEventListener("click", function() {
-    startPageEl.style.display = "block";
+tryAgainEl.addEventListener("click", function(event) {
     startEl();
 });

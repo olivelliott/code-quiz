@@ -29,45 +29,46 @@ THEN I can save my initials and score -->
             <div class="col-md-8 border p-4">
                 <header>
                     <div class="card-body">
-                        <h1 class="card-text float-right font-weight-bold">Code Quiz</h1>
-                        <p>(<span id=number>0</span> of 5)</p>
-                        <h2 id="countdown"></h2>
+                        <h1 class="card-text font-weight-bold row justify-content-center">Code Quiz</h1>
                     </div>
                 </header>
                 <br />
 
-                <section class="start-page">
+                <section class="start-page text-center bg-dark text-white text-center p-4 rounded">
                     <h3 class="text-center bg-dark text-white text-center">Coding Basics</h3>
                     <p class="text-center">You will get 5 seconds added per correct answer. If your answer is incorrect 5 seconds will be subtracted from the timer.</p>
                     <button class="btn d-flex mx-auto mt-4 bg-info text-white" id="btn-start">Start the Quiz</button>
                 </section>
-                <main class="quiz-content">
-                    <h2 class="card-text float-right" id="timer"></h2>
-                    <div id="question-content">
-                        <div class="card-body">
-                            <p class="card-text question-element" id="question"></p>
-                        </div>
-                        <div class="col-md-12 p-4" id="choices">
-                            <div class="choice" id="A" onclick="checkAnswer('A')">
-                            <button class="btn btn-block btn-outline-info text-left option" id="option1">A</button>
+                <main class="quiz-content bg-dark text-white p-4 rounded">
+                    <div>
+                        <h2 class="display-6 p-4 bg-dark text-white" id="countdown"></h2>
+                        <h2 class="card-text float-right" id="timer"></h2>
+                        <div id="question-content">
+                            <div class="card-body">
+                                <p class="card-text question-element display-5" id="question"></p>
                             </div>
-                            <div class="choice" id="B" onclick="checkAnswer('B')">
-                            <button class="btn btn-block btn-outline-info text-left option" id="option2">B</button>
-                            </div>
-                            <div class="choice" id="C" onclick="checkAnswer('C')">
-                            <button class="btn btn-block btn-outline-info text-left option" id="option3">C</button>
-                            </div>
-                            <div class="choice" id="D" onclick="checkAnswer('D')">
-                            <button class="btn btn-block btn-outline-info text-left option" id="option4">D</button>
+                            <div class="col-md-12 p-4" id="choices">
+                                <div class="choice" id="A" onclick="checkAnswer('A')">
+                                    <button class="btn btn-block btn-outline-info text-left option p-2" id="option1">A</button>
+                                </div>
+                                <div class="choice" id="B" onclick="checkAnswer('B')">
+                                    <button class="btn btn-block btn-outline-info text-left option p-2" id="option2">B</button>
+                                </div>
+                                <div class="choice" id="C" onclick="checkAnswer('C')">
+                                    <button class="btn btn-block btn-outline-info text-left option p-2" id="option3">C</button>
+                                </div>
+                                <div class="choice" id="D" onclick="checkAnswer('D')">
+                                    <button class="btn btn-block btn-outline-info text-left option p-2" id="option4">D</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </main>
-                <div id="scoreContainer">
+                <div class="bg-dark text-white p-4 rounded" id="scoreContainer">
                     <p class="display-6 bg-dark text-white" id="score"></p>
                     <form class="high-score-submission">
-                        <input type="text" placeholder="Initials" id="saveForm">
-                        <button type="submit" id="submit-button" placeholder="Submit">Submit</button>
+                        <input class="d-flex mx-auto mt-4 rounded" type="text" placeholder="Initials" id="saveForm">
+                        <button class="btn d-flex mx-auto mt-4 bg-info text-white" type="submit" id="submit-button" placeholder="Submit">Submit</button>
                         <!-- <button type="submit" id="high-scores">View High Scores</button> -->
                     </form>
                 </div>
