@@ -4,8 +4,8 @@
 var startButtonEl = document.querySelector("#btn-start");
 var startPageEl = document.querySelector(".start-page")
 var questionEl = document.querySelector("#question");
-var quiz = document.querySelector(".quiz-content")
-var options = document.querySelector("#choices");
+var quizContentEl = document.querySelector(".quiz-content")
+var optionsEl = document.querySelector("#choices");
 var choiceA = document.querySelector("#option1");
 var choiceB = document.querySelector("#option2");
 var choiceC = document.querySelector("#option3");
@@ -16,7 +16,7 @@ var questions =  [
         choiceA: "Document Override Manuscript",
         choiceB: "Document Object Model",
         choiceC: "Data Override Module",
-        choiceD: "Data Options Manual",
+        choiceD: "Data optionsEl Manual",
         correct: "B",
     },
     {
@@ -52,24 +52,40 @@ var questions =  [
         correct: "D",
     }
 ];
+var timerEl = document.querySelector("#countdown");
+var scoreEl = document.querySelector("#score");
+var saveNameInputEl = document.querySelector("#saveForm");
+var submitButtonEl = document.querySelector("#submit-button");
+var highScoreButtonEl = document.querySelector("#high-scores");
+var highScoreContentEl = document.querySelector(".high-score-submission");
+var highScorePageEl = document.querySelector(".high-score-page");
+var tryAgainEl = document.querySelector("#try-again-button");
+// var quizContentElQuestionNumber = document.querySelector("#number")
+var timeLeft = 30;
+var finalScore = 0;
 var lastQuestionIndex = questions.length -1;
 var runningQuestionIndex = 0;
-var timerEl = document.querySelector("#countdown");
-var timeLeft = 30;
-var scoreEl = document.querySelector("#score");
-var saveEl = document.querySelector("#saveForm");
-var finalScore = 0;
 
+
+
+highScorePageEl.style.display = "none";
 
 var startEl = function() {
-var startButtonEl = document.createElement("button")
-startButtonEl.textContent = "Start The Quiz";
-startButtonEl.className = "btn-start"
-startButtonEl.appendChild(startEl);
-countdown();
+highScorePageEl.style.display = "none";
+startPageEl.style.display = "block";
+runningQuestionIndex = 0;
+finalScore = 0;
+timeLeft = 30;
+renderQuestion();
+// var startButtonEl = document.createElement("button")
+// startButtonEl.textContent = "Start THEEEhe quiz";
+// startButtonEl.className = "btn-start"
+// startEl.appendChild(startButtonEl);
+// countdown();
 }
 
 function countdown() {
+    quizContentEl.style.display = "block";
     var timeInterval = setInterval(function () {
       if (timeLeft > 1) {
         timerEl.textContent = timeLeft + ' seconds remaining';
@@ -84,8 +100,7 @@ function countdown() {
         clearInterval(timeInterval);
       }
     }, 1000);
-    renderQuestion();
-    quiz.style.display = "block";
+    // renderQuestion();
   }
 
 function answerIsCorrect() {
@@ -99,6 +114,10 @@ function answerIsWrong() {
 }
 
 function renderQuestion() {
+    countdown();
+    startPageEl.style.display = "none";
+    highScorePageEl.style.display = "none";
+
     var q = questions[runningQuestionIndex];
     questionEl.textContent = q.question
     choiceA.textContent = q.choiceA;
@@ -128,15 +147,45 @@ function scoreRender() {
     scoreContainer.style.display = "block";
     timerEl.style.display = "none";
     startPageEl.style.display = "none";
-    quiz.style.display = "none";
+    quizContentEl.style.display = "none";
     var score = Math.max(100 * finalScore / questions.length);
     var testScore = document.createElement("p")
     testScore.textContent = "Congratulations! Your score was " + score + "%. "
      + "Would you like to save your score?";    
-    var saveScoreFormEl = document.createElement("form");
-    saveScoreFormEl.textContent = "hello";
-    saveEl.appendChild(saveScoreFormEl);
+    // var saveScoreFormEl = document.createElement("form");
+    // saveScoreFormEl.textContent = "hello";
+    // saveNameInputEl.appendChild(saveScoreFormEl);
     scoreEl.appendChild(testScore);
+    localStorage.setItem("testScore", score)
 }
 
-startButtonEl.addEventListener("click", countdown);
+function highScorePage() {
+    highScoreContentEl.style.display = "none";
+    scoreContainer.style.display = "none";
+    highScorePageEl.style.display = "block";
+    var userInitialData = JSON.parse(localStorage.getItem("userInput"))
+    var scoreData = JSON.parse(localStorage.getItem("testScore"))
+    var highScoreList = document.createElement("ol");
+    var highScoreNumber = document.createElement("li")
+    var highScoreName = document.createElement("p")
+    highScoreNumber.textContent = scoreData;
+    highScoreName.textContent = userInitialData;
+    highScoreNumber.appendChild(highScoreName);
+    highScoreList.appendChild(highScoreNumber);
+    highScorePageEl.appendChild(highScoreList);
+    console.log(highScorePageEl);
+}
+
+
+startButtonEl.addEventListener("click", startEl);
+submitButtonEl.addEventListener("click", function(event){
+    event.preventDefault();
+    var userInput =  saveNameInputEl.value.trim();
+    localStorage.setItem("userInput", JSON.stringify(userInput));
+    highScorePage();
+});
+
+tryAgainEl.addEventListener("click", function() {
+    startPageEl.style.display = "block";
+    startEl();
+});
