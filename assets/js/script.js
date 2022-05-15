@@ -66,9 +66,13 @@ function countdown() {
     renderQuestion();
   }
 
-  function setCounterText() {
-    timeLeft++;
-  }
+function answerIsCorrect() {
+    timeLeft ++;
+}
+
+function answerIsWrong() {
+    timeLeft--;
+}
 
 function renderQuestion() {
     var q = questions[runningQuestionIndex];
@@ -79,20 +83,16 @@ function renderQuestion() {
     choiceD.textContent = q.choiceD;
 }
 
-function answerIsCorrect() {
-    setCounterText();
-}
-
 function checkAnswer(answer) {
     if(questions[runningQuestionIndex].correct == answer) {
-        timer++;
+        timeLeft++;
         answerIsCorrect();
     } else {
         answerIsWrong();
         timer--;
     }
     if (runningQuestionIndex < lastQuestionIndex) {
-        count = 0;
+        // count = 0;
         runningQuestionIndex++;
         renderQuestion();
     }
