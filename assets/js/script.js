@@ -2,6 +2,7 @@
 // THEN I can save my initials and score
 
 var startButtonEl = document.querySelector("#btn-start");
+var startPageEl = document.querySelector(".start-page")
 var questionEl = document.querySelector("#question");
 var quiz = document.querySelector(".quiz-content")
 var options = document.querySelector("#choices");
@@ -50,12 +51,14 @@ var questions =  [
         choiceD: "Anaconda",
         correct: "D",
     }
-]
+];
 var lastQuestionIndex = questions.length -1;
 var runningQuestionIndex = 0;
 var timerEl = document.querySelector("#countdown");
 var timeLeft = 30;
-var scoreEl = document.querySelector("#score")
+var scoreEl = document.querySelector("#score");
+var saveEl = document.querySelector("#saveForm");
+var finalScore = 0;
 
 
 var startEl = function() {
@@ -87,10 +90,12 @@ function countdown() {
 
 function answerIsCorrect() {
     timeLeft ++;
+    finalScore ++;
 }
 
 function answerIsWrong() {
     timeLeft--;
+    // finalScore--;
 }
 
 function renderQuestion() {
@@ -122,9 +127,16 @@ function checkAnswer(answer) {
 function scoreRender() {
     scoreContainer.style.display = "block";
     timerEl.style.display = "none";
+    startPageEl.style.display = "none";
     quiz.style.display = "none";
-    var finalScore = Math.round(100 * score / questions.length);
-    scoreEl.appendChild(finalScore);
+    var score = Math.max(100 * finalScore / questions.length);
+    var testScore = document.createElement("p")
+    testScore.textContent = "Congratulations! Your score was " + score + "%. "
+     + "Would you like to save your score?";    
+    var saveScoreFormEl = document.createElement("form");
+    saveScoreFormEl.textContent = "hello";
+    saveEl.appendChild(saveScoreFormEl);
+    scoreEl.appendChild(testScore);
 }
 
 startButtonEl.addEventListener("click", countdown);
