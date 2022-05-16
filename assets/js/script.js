@@ -198,7 +198,4 @@ highScoreButtonEl.addEventListener("click", function(event) {
     highScorePage();
 });
 tryAgainEl.addEventListener("click", startEl);
-// tryAgainEl.addEventListener("click", resetQuiz);
 
-
-// localStorage.setItem("highScoreMemory", JSON.stringify(highScoreMemoryEl));
