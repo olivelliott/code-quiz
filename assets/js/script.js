@@ -1,6 +1,3 @@
-// WHEN the game is over
-// THEN I can save my initials and score
-
 var startButtonEl = document.querySelector("#btn-start");
 var startPageEl = document.querySelector(".start-page")
 var questionEl = document.querySelector("#question");
@@ -57,34 +54,27 @@ var scoreEl = document.querySelector("#score");
 var saveNameInputEl = document.querySelector("#saveForm");
 var submitButtonEl = document.querySelector("#submit-button");
 var highScoreButtonEl = document.querySelector("#high-scores");
-var highScoreContentEl = document.querySelector(".high-score-submission");
+var highScoreFormEl = document.querySelector(".high-score-submission");
 var highScorePageEl = document.querySelector(".high-score-page");
 var tryAgainEl = document.querySelector("#try-again-button");
-// var quizContentElQuestionNumber = document.querySelector("#number")
 var timeLeft = 60;
 var finalScore = 0;
 var lastQuestionIndex = questions.length -1;
 var runningQuestionIndex = 0;
+var highScoreMemoryEl = [];
 
-
-
-highScorePageEl.style.display = "none";
-var startEl = function() {
+function startEl() {
     highScorePageEl.style.display = "none";
     startPageEl.style.display = "block";
     runningQuestionIndex = 0;
     finalScore = 0;
     timeLeft = 60;
     countdown();
-    // var startButtonEl = document.createElement("button")
-    // startButtonEl.textContent = "Start THEEEhe quiz";
-    // startButtonEl.className = "btn-start"
-    // startEl.appendChild(startButtonEl);
-    // countdown();
-    }
+}
 
 function countdown() {
     quizContentEl.style.display = "block";
+    // scoreContainer.style.display = "none";
     var timeInterval = setInterval(function () {
       if (timeLeft > 1) {
         timerEl.textContent = timeLeft + ' seconds remaining';
@@ -163,15 +153,13 @@ function scoreRender() {
     var testScore = document.createElement("p")
     testScore.textContent = "Congratulations! Your score was " + score + "%. "
      + "Would you like to save your score?";    
-    // var saveScoreFormEl = document.createElement("form");
-    // saveScoreFormEl.textContent = "hello";
-    // saveNameInputEl.appendChild(saveScoreFormEl);
     scoreEl.appendChild(testScore);
     localStorage.setItem("testScore", score)
+    // highScoreMemoryEl.push(score);
 }
 
 function highScorePage() {
-    highScoreContentEl.style.display = "none";
+    highScoreFormEl.style.display = "none";
     scoreContainer.style.display = "none";
     highScorePageEl.style.display = "block";
     var userInitialData = JSON.parse(localStorage.getItem("userInput"))
@@ -184,17 +172,33 @@ function highScorePage() {
     highScoreNumber.appendChild(highScoreName);
     highScoreList.appendChild(highScoreNumber);
     highScorePageEl.appendChild(highScoreList);
-    console.log(highScorePageEl);
+    // highScoreMemoryEl.push(scoreData);
+
 }
-    
+
+function resetQuiz () {
+    highScorePageEl.style.display = "none";
+    startPageEl.style.display = "block";
+    runningQuestionIndex = 0;
+    finalScore = 0;
+    timeLeft = 60;
+    countdown();
+}
+
 startButtonEl.addEventListener("click", startEl);
 submitButtonEl.addEventListener("click", function(event){
     event.preventDefault();
     var userInput =  saveNameInputEl.value.trim();
     localStorage.setItem("userInput", JSON.stringify(userInput));
+    highScoreMemoryEl.push(userInput);
+    alert("Your score was saved!");
+});
+highScoreButtonEl.addEventListener("click", function(event) {
+    event.preventDefault();
     highScorePage();
 });
+tryAgainEl.addEventListener("click", startEl);
+// tryAgainEl.addEventListener("click", resetQuiz);
 
-tryAgainEl.addEventListener("click", function(event) {
-    startEl();
-});
+
+// localStorage.setItem("highScoreMemory", JSON.stringify(highScoreMemoryEl));

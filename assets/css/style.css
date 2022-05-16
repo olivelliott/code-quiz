@@ -17,3 +17,12 @@ THEN I can save my initials and score */
 #scoreContainer {
     display: none;
 }
+
+.high-score-page {
+    display: none;
+}
+
+.high-score-page button a {
+    text-decoration: none;
+    color: white;
+}
